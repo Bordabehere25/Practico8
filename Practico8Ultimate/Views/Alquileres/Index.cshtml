@@ -1,0 +1,95 @@
+﻿@model IEnumerable<Practico8Ultimate.Models.Alquilere>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Alquileres</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<form method="post" action="@Url.Action("alquilerPorId", "Alquileres")">
+    
+    <div>
+        <label for="usuarioId">ID del Usuario</label>
+        <input type="text" id="id" name="id" />  @* //El name es el parametro de la funcion *@
+
+        <button type="submit" name="botonSubmit"> Buscar</button>
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaAlquiler)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaTope)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaEntregada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCopia)
+            </th>
+            <th>
+                Titulo
+            </th>
+            <th>
+                Formato
+            </th>
+            <th>
+                Nombre Cliente
+            </th>
+            <th>
+                Telefono Contacto
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaAlquiler)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaTope)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaEntregada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdClienteNavigation.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCopiaNavigation.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCopiaNavigation.IdPeliculaNavigation.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCopiaNavigation.Formato)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdClienteNavigation.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdClienteNavigation.Telefono)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

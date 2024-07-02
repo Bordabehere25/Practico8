@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Practico8Ultimate.Models.Copia>
+
+@{
+    ViewData["Title"] = "Index";
+    bool isFiltered = ViewBag.IsFiltered ?? false;
+}
+
+<h1>Copias</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+@if(isFiltered == true)
+{
+    <form method="get" action="@Url.Action("Index", "Copias")">
+        <button type="submit" class="btn btn-secondary">Volver</button>
+    </form>
+}
+else
+{
+    <form method="post" action="@Url.Action("botonCopiasDiponiblesUltima", "Copias")">
+        <button type="submit" class="btn btn-primary">Mostrar Copias Disponibles</button>
+    </form>
+}
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Deteriorada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Formato)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioAlquiler)
+            </th>
+            <th>
+                IdPelicula
+            </th>
+            <th>
+                IdCopia
+            </th>
+            <th>
+                Titulo
+            </th>
+            <th>
+                Año
+            </th>
+            <th>
+                Calificacion
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deteriorada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Formato)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PrecioAlquiler)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPeliculaNavigation.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPeliculaNavigation.Titulo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPeliculaNavigation.Anio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdPeliculaNavigation.Calificacion)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
